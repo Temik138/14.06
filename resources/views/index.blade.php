@@ -15,11 +15,11 @@
         }
 
         .nav-link {
-      margin-left: 40px; 
-    }
-    .first-link {
-      margin-left: 40px; 
-    }
+            margin-left: 40px;
+        }
+        .first-link {
+            margin-left: 40px;
+        }
 
         .my-auto {
             margin-left: 10px;
@@ -45,23 +45,29 @@
 
         <hr class="self-stretch mt-6 w-full border border-solid border-neutral-600 min-h-px max-md:max-w-full"/>
 
-       <nav class="flex flex-wrap gap-5 justify-between mt-8 max-w-full text-xl text-white">
-        <div class="flex gap-10 items-center max-md:max-w-full">
-            <a href="/" class="self-stretch text-5xl font-bold basis-auto max-md:text-4xl">
-                PROFI
-            </a>
-            <a href="/map" class="first-link">Контакты</a>
-            <a href="/catalog" class="nav-link">Каталог</a>
-            <a href="{{ route('cart') }}" class="nav-link relative">
-                Корзина
-                <span id="cart-counter" class="absolute -top-2 -right-4 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-                      style="display: {{ auth()->check() && \App\Http\Controllers\CartController::getCartItemCount() > 0 ? 'flex' : 'none' }}">
-                    {{ auth()->check() ? \App\Http\Controllers\CartController::getCartItemCount() : 0 }}
-                </span>
-            </a>
-        </div>
+        <nav class="flex flex-wrap gap-5 justify-between mt-8 max-w-full text-xl text-white">
+            <div class="flex gap-10 items-center max-md:max-w-full">
+                <a href="/" class="self-stretch text-5xl font-bold basis-auto max-md:text-4xl">
+                    PROFI
+                </a>
+                <a href="/map" class="first-link">Контакты</a>
+                <a href="/catalog" class="nav-link">Каталог</a>
+                <a href="{{ route('cart') }}" class="nav-link relative">
+                    Корзина
+                    <span id="cart-counter" class="absolute -top-2 -right-4 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                          style="display: {{ auth()->check() && \App\Http\Controllers\CartController::getCartItemCount() > 0 ? 'flex' : 'none' }}">
+                        {{ auth()->check() ? \App\Http\Controllers\CartController::getCartItemCount() : 0 }}
+                    </span>
+                </a>
+            </div>
 
             @auth
+                {{-- Кнопка "Админ-панель" только для администраторов --}}
+                @if (Auth::user()->is_admin)
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link mt-2.5 hover:text-gray-300">
+                        Админ-панель
+                    </a>
+                @endif
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="nav-link mt-2.5 hover:text-gray-300">Выйти</button>
@@ -92,7 +98,6 @@
                 class="flex flex-nowrap items-center justify-center mt-11 max-w-full text-2xl tracking-wider text-white w-[1400px] max-md:mt-10 overflow-x-auto">
                 <a href="#windbreakers" class="flex items-center gap-2 px-4 whitespace-nowrap">
                     <img
-
                         src="https://i.ibb.co/xSJN9V1C/Vector.png"
                         alt="Ветровки"
                         class="w-10 h-10 object-contain"
@@ -138,7 +143,6 @@
             </nav>
         </section>
 
-        <!-- Остальной код остается без изменений -->
         <section class="w-full flex flex-col items-center">
             <h2 class="mt-20 text-xl font-semibold text-white max-md:mt-10">
                 Немного интересного
@@ -228,13 +232,12 @@
             </h2>
 
             <div class="flex flex-wrap gap-10 mt-11 max-w-full text-white w-[1187px] max-md:mt-10">
-                <!-- Карточка 1 -->
                 <a href="product/sorty-manto-muzskie" class="flex-1">
                     <article
                         class="product-card flex flex-col items-center p-3 text-xl rounded-md border border-solid border-stone-500 hover:border-white hover:bg-neutral-600 cursor-pointer h-full">
                         <img
                             src="https://i.ibb.co/gLyFBj9P/pr-21558-1.png"
-                            alt="Шорты salomon"
+                            alt="Шорты manto"
                             class="object-contain mx-3.5 aspect-square w-[140px] max-md:mx-2.5"
                         />
                         <h3 class="mt-3 text-center">Шорты manto</h3>
@@ -242,7 +245,6 @@
                     </article>
                 </a>
 
-                <!-- Карточка 2 -->
                 <a href="/product/kurtka-redfox" class="flex-1">
                     <article
                         class="product-card flex flex-col items-center px-6 py-3 text-xl rounded-md border border-solid border-stone-500 hover:border-white hover:bg-neutral-600 cursor-pointer h-full">
@@ -256,7 +258,6 @@
                     </article>
                 </a>
 
-                <!-- Карточка 3 -->
                 <a href="/product/krossovki-salomon-muzskie" class="flex-1">
                     <article
                         class="product-card flex flex-col items-center px-3.5 py-3 rounded-md border border-solid border-stone-500 hover:border-white hover:bg-neutral-600 cursor-pointer h-full">
@@ -270,7 +271,6 @@
                     </article>
                 </a>
 
-                <!-- Карточка 4 -->
                 <a href="/product/sorty-puma" class="flex-1">
                     <article
                         class="product-card flex flex-col items-center px-6 py-3 text-xl rounded-md border border-solid border-stone-500 hover:border-white hover:bg-neutral-600 cursor-pointer h-full max-md:px-5">
@@ -284,7 +284,6 @@
                     </article>
                 </a>
 
-                <!-- Карточка 5 -->
                 <a href="/product/sorty-salomon-zenskie" class="flex-1">
                     <article
                         class="product-card flex flex-col items-center px-4 py-3 rounded-md border border-solid border-stone-500 hover:border-white hover:bg-neutral-600 cursor-pointer h-full">
@@ -346,5 +345,3 @@
         update();
     })();
 </script>
-</body>
-</html>
